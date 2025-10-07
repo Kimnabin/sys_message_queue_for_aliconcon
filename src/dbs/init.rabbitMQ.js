@@ -30,6 +30,26 @@ const connectToRabbitMQForTest = async () => {
     }
 }
 
+const consumerQueue = async ( channel, queue ) => {
+    try {
+        await channel.assertQueue(queue, { durable: true });
+        console.log(`Waiting for messages in ${queue}`);
+        channel.consume( queue, (msg) => {
+            console.log(`Received message: ${msg.content.toString()}`); 
+            // 1. find user folowing the shop
+            // 2. send message to user
+            // 3. yes. ok => success
+            // 4. error => setup DLX ( dead letter exchange )
+        }, {
+            noAck: true         // Auto acknowledgment of messages
+        });
+    } catch (error) {
+        console.error('Error consuming messages:', error);
+    }
+}
+
 module.exports = { 
     connectToRabbitMQ, 
-    connectToRabbitMQForTest };
+    connectToRabbitMQForTest,
+    consumerQueue
+};

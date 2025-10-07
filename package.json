@@ -4,7 +4,8 @@
   "description": "sys message queue for aliconcon ",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
